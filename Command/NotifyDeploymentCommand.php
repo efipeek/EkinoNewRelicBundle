@@ -19,21 +19,23 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'newrelic:notify-deployment',
+    description: 'Newrelic: Notify deployment'
+)]
 class NotifyDeploymentCommand extends Command
 {
     public const EXIT_NO_APP_NAMES = 1;
     public const EXIT_UNAUTHORIZED = 2;
     public const EXIT_HTTP_ERROR = 3;
 
-    protected static $defaultName = 'newrelic:notify-deployment';
-
     private $newrelic;
 
-    public function __construct(Config $newrelic)
+    public function __construct(Config $newrelic, string $name = null)
     {
         $this->newrelic = $newrelic;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     protected function configure(): void
